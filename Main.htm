@@ -1,0 +1,1770 @@
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SOLVE - Mechanics of Machines Lab - Double Acting Single Cylinder Steam Engine With and Without Flywheel</title>
+
+
+</head>
+<body omload="notclick()">
+<img id="nxtbtn" src="bluefwddulls.png" class="nxt" onclick="clicked()">
+<img id="pbtn" src="bluebkdulls.png" class="nxt" onclick="notclick()">
+<div class="label"> Double Acting Single Cylinder Steam Engine &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp With and Without Flywheel</div>
+<div class="xaxis"> Torque </div>
+<div class="yaxis"> Theta </div>
+<div class="b"><br><br></div>
+<div class="x">
+<form id="myForm" oninput="x.value=parseInt(a.value)">
+  <label for="a"></label><input type="range" id="a" min="10" max="72" value="72"> 
+</form>
+<form id="myForm1" oninput="y.value=parseInt(b.value)">
+  <label  for="b">Pressure in bar </label> <input type="number" id="spinnerp" name="points" min="1" max="20"  step="5"><br><input type="range" id="b" min="1" max="20" value="15"> 
+</form><br>
+<form id="myForm2" oninput="s.value=parseInt(c.value)">
+  <label for="c">Bore Diameter in cm </label> <input type="number" id="spinnerd" name="points" min="10" max="25"  step="5"><br><input type="range" id="c" min="10" max="25" value="20"> 
+</form>
+</div>
+<div class="y">
+<form id="myForm3" oninput="l.value=parseInt(p.value)">
+  <label for="p">Mass of flywheel in kg </label><input type="number" id="spinnerm" name="points" min="10" max="50"  step="5"><br><input type="range" id="p" min="10" max="50" value="25"> 
+</form>
+<br>
+<form id="myForm4" oninput="m.value=parseInt(q.value)">
+  <label for="q">Radius of flywheel in cm</label><input type="number" id="spinnerr" name="points" min="10" max="25"  step="5"><br><input type="range" id="q" min="10" max="25" value="15"> 
+</form>
+<form id="myForm5" oninput="n.value=parseInt(r.value)">
+  <label for="r"></label><input type="range" id="r" min="5" max="25" value="15"> 
+</form><p>
+ <label id="lb" for="flwoptn">Type of Flywheel</label>
+<select name="flywheel" id="flwoptn">
+
+    <option value="disc">Disc type</option>
+    <option value="rim">Rim type</option>
+</select></p>
+</div>
+<div class="inp1">
+	
+	<img onclick="begin()" id="begin" src="blueplaydull.png">
+</div>	
+<div class="inp2">
+	<img onclick="stop()" id="stop" src="bluepausedull.png">
+</div>
+
+<div id="output2">
+	
+	<p id= "t_op"></p>
+</div>	
+<div id="output3">
+	
+	<p id= "disp_op"></p>
+</div>	
+<div id="output">
+	
+	<p id= "myop"><b></b></p>
+</div>	
+<div id="output1">
+	<p id="tor"><b></b></p>
+</div>		
+<div class="txt">
+<p id="distxt"></p>
+</div>
+<div id="tor_time">
+
+</div>
+<div id="tor_time1">
+
+</div>
+<div id="labeltime0"></div>
+<div id="labeltime1"></div>
+<div id="labeltime2"></div>
+<div id="labeltime3"></div>
+<div id="labeltime4"></div>
+<div id="labeltime5"></div>
+<div id="labeltime6"></div>
+<div id="labeltime7"></div>
+<div id="labeltime8"></div>
+<div id="labeltime9"></div>
+
+<div id="labeltheta0"></div>
+<div id="labeltheta1"></div>
+<div id="labeltheta2"></div>
+<div id="labeltheta3"></div>
+<div id="labeltheta4"></div>
+<div id="labeltheta5"></div>
+<div id="labeltheta6"></div>
+<div id="labeltheta9"></div>
+<div id="labeltheta8"></div>
+
+<div id="label0"></div>
+<div id="labelpi"></div>
+<div id="labeltwopi"></div>
+
+<div id="thet"></div>
+<div id="tim"></div>
+<div id="tlabeltwopi"></div>
+
+	<div class="flwtxt">
+	<p id="myflw"></P>
+	</div>
+
+
+<div id="commentboxleft"></div>
+
+<div id="tmean1"></div>
+<div id="tmean2"></div>
+
+<div id="copyright" title="Developer : SOLVEr"> </div>	
+ <div id="vard" title="Developer : SOLVEr"> VARIABLES </div>	
+  <div id="contr" title="Developer : SOLVEr"> CONTROLS </div>	
+<canvas id="myCanvas" height="100%" width="100%">
+
+</canvas>
+
+<style>
+	* {
+		padding: 0;
+		margin: 0;
+	}
+
+body {
+		width: 810px;
+		height: 605px;
+		background: url("frame_copper_ver02.png") no-repeat;
+		
+		background-position:center;
+		
+		
+	}
+	#tmean1{
+	position:absolute;
+	left:410px;
+	bottom:330px;
+	font-family:"Comic Sans MS", cursive, sans-serif;
+	font-size:12px;
+	color:	green;
+	
+	}
+	#tmean2{
+	position:absolute;
+	left:650px;
+	bottom:330px;
+	font-family:"Comic Sans MS", cursive, sans-serif;
+	font-size:12px;
+	color:	green;
+	}
+	
+	#tor_time
+	{
+		position:absolute;
+		right:493px;
+		bottom:273.5px;
+	}
+	#tor_time1
+	{
+		position:absolute;
+		right:720px;
+		bottom:373px;
+		font-size:14px;
+	}
+	
+	div.txt{
+	position:absolute;
+	right:540px;
+	bottom:48px;
+	color: red;
+	
+	}
+	.nxt {
+  display: nxt;
+ 
+  cursor: pointer;
+ 
+  position:absolute;
+  right:470px;
+  bottom:35px;
+  
+}
+
+div#commentboxleft
+{
+	border-top-style: dotted;
+	border-top-width: 2px;
+	border-top-color: #f6ebed;
+	position:absolute;
+	left:300px;
+	top:510px;
+	height: 100px;
+	width: 250px;
+	color: #e7722b;
+	text-align: left;
+	font-size: 15px;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+
+.block:hover {
+  background-color: #ddd;
+  color: black;
+}
+	div.flwtxt {
+	position:absolute;
+	right:824px;
+	top:128px;
+	color:red;
+	}
+	div.xaxis{
+	position:absolute;
+	left:298px;
+	top:260px;
+	font-size: 14px;
+	}
+	#thet{
+	position:absolute;
+	left:495px;
+	top:398px;
+	font-size: 14px;
+	}
+	#tim{
+	position:absolute;
+	left:794px;
+	top:523px;
+	}
+		div.yaxis{
+	position:absolute;
+	left:532px;
+	top:355px;
+	}
+	div.label{
+	position:absolute;
+	left:392px;
+	top:32.8px;
+	height: 40px;
+	width: 650px;
+	align:center;
+	font-size: 32px;
+	font-family: Times;
+	}
+
+div.x {
+  position: absolute;
+  right: 360px;
+  width: 100px;
+  height: 120px;
+  bottom: 350px;
+  
+} 
+div.y {
+  position: absolute;
+  right: 360px;
+  width: 100px;
+  height: 120px;
+  bottom: 360px;
+  
+} 
+	
+	p {
+		padding-bottom: 3vh;
+	}
+	#output {
+		position: absolute;
+		right: 23vw;
+		top: 53.5vh;
+	}
+	#output1 {
+		position: absolute;
+		right: 23vw;
+		top: 56.5vh;
+	}
+	#output2 {
+		position: absolute;
+		right: 32.5vw;
+		top: 31.5vh;
+	}
+		#output3 {
+		position: absolute;
+		right: 32.5vw;
+		top: 44vh;
+	}
+	#copyright {
+	position:absolute;
+	bottom:28.2px;
+	left:515px;
+	height: 10px;
+	width: 800px;
+	
+	font-size: 12px;
+	font-family:sans-serif;
+	}
+	#vard {
+	position:absolute;
+	top:128px;
+	right:335px;
+	
+	}
+	#contr {
+	position:absolute;
+	top:437px;
+	right:335px;
+	
+	}
+	#tlabeltwopi{
+	position:absolute;
+	left:495px;
+	top:414px;
+	font-size:13px;
+	}
+	
+	
+	
+	#label0{
+	position:absolute;
+	top:340px;
+	left:305px;
+	
+	}
+	#labelpi{
+	position:absolute;
+	top:340px;
+	left:435px;
+	}
+	#labeltwopi{
+	position:absolute;
+	top:340px;
+	left:565px;
+	}
+	#labeltime0{
+	position:absolute;
+	top:340px;
+	left:665px;
+	}
+	
+	#labeltime8{
+	position:absolute;
+	top:340px;
+	left:635px;
+	}
+		#labeltime9{
+	position:absolute;
+	top:340px;
+	left:605px;
+	}
+		
+		#labeltime1{
+	position:absolute;
+	top:340px;
+	left:700px;
+	}
+		#labeltime2{
+	position:absolute;
+	top:340px;
+	left:735px;
+	}
+		#labeltime3{
+	position:absolute;
+	top:340px;
+	left:765px;
+	}
+		#labeltime4{
+	position:absolute;
+	top:340px;
+	left:800px;
+	}
+		#labeltime5{
+	position:absolute;
+	top:340px;
+	left:835px;
+	}
+		#labeltime6{
+	position:absolute;
+	top:340px;
+	left:858.5px;
+	}
+		#labeltheta8{
+	position:absolute;
+	top:540px;
+	left:760px;
+	}
+		#labeltheta9{
+	position:absolute;
+	top:540px;
+	left:785px;
+	}
+	#labeltheta0{
+	position:absolute;
+	top:540px;
+	left:510px;
+	}
+		#labeltheta1{
+	position:absolute;
+	top:540px;
+	left:550px;
+	}
+		#labeltheta2{
+	position:absolute;
+	top:540px;
+	left:590px;
+	}
+		#labeltheta3{
+	position:absolute;
+	top:540px;
+	left:625px;
+	}
+		#labeltheta4{
+	position:absolute;
+	top:540px;
+	left:660px;
+	}
+		#labeltheta5{
+	position:absolute;
+	top:540px;
+	left:695px;
+	}
+		#labeltheta6{
+	position:absolute;
+	top:540px;
+	left:733px;
+	}
+
+	.inp1 {
+		position: absolute;
+		padding-left: 1vw;
+		top:480px;
+		 right: 368px;
+		width: 2vw;
+	}
+		.inp2 {
+		position: absolute;
+		padding-left: 1vw;
+		top:480px;
+		 right: 380px;
+		width: 2vw;
+	}
+	.inp3 {
+		position: absolute;
+		padding-left: 1vw;
+		top:540px;
+		 right: 380px;
+		width: 2vw;
+	}
+	.inp label {
+		padding-bottom: 3px;
+		text-align: center;
+		 right: 200px;
+		margin-left: 6vw;
+	}
+	#theta {
+		margin-bottom: 1vh;
+	}
+	button {
+		display: block;
+		width: 2vw;
+	}
+	input[type=range] {
+	margin-top:10px;
+		/*removes default webkit styles*/
+		-webkit-appearance: none;
+		/*fix for FF unable to apply focus style bug */
+		
+		/*required for proper track sizing in FF*/
+		width: 150px;
+		
+	}
+
+
+input[type=range] {
+  -webkit-appearance: none;
+ 
+  height: 7.2px;
+  border-radius: 5px;
+   background: #d7d7d7; z-index: 1
+  color:black;
+   -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.5) inset; -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.5) inset; box-shadow: 0 1px 2px rgba(0,0,0,0.5) inset;
+      -moz-box-shadow: 0 1px 2px rgba(17,35,45,0.6) inset; -webkit-box-shadow: 0 1px 2px rgba(17,35,45,0.6) inset; box-shadow: 0 1px 2px rgba(17,35,45,0.6) inset;
+  outline: none;
+  opacity: 1;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+input[type=range]:hover {
+ background-position: 0 0
+ 
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 23px;
+  height: 24px;
+
+  border: 0;
+  background: url('slider_handles.png');
+  cursor: pointer;
+}
+
+
+	/*----------------above is the styling for the input object--------------------- */
+	/*----------------below is the styling for the button object--------------------- */
+	button {
+		display: inline-block;
+		margin: 0;
+		padding: 0.75rem 1rem;
+		border: 0;
+		border-radius: 0.317rem;
+		background-color: green;
+		color: #fff;
+		width: 10vw;
+		text-decoration: none;
+		font-weight: 700;
+		font-size: 2vh;
+		line-height: 0.5;
+		font-family: "Helvetica Neue", Arial, sans-serif;
+		cursor: pointer;
+		-webkit-appearance: none;
+		-webkit-font-smoothing: antialiased;
+	}
+	button:hover {
+		opacity: 0.85;
+	}
+	button:active {
+		box-shadow: inset 0 3px 4px hsla(0, 0%, 0%, 0.2);
+	}
+	button:focus {
+		outline: thin dotted #444;
+		outline: 5px auto -webkit-focus-ring-color;
+		outline-offset: -2px;
+	}
+	/*----------------above is the styling for the button object--------------------- */
+	/*----------------above is the styling for the input object--------------------- */
+	input[type=number]
+	{
+		position:absolute;
+		right:-50px;
+		width: 50px;
+		height:21px;
+	}
+	
+
+</style>
+
+
+<script>
+
+var slider_crank = {
+		ox: window.innerWidth / 5+330,
+		oy: window.innerHeight / 4-20, // To put it somewhere near the middle of the screen
+		coup_len: 82,
+		crank_len: 25,
+		offset_height: 0,
+		theta: 0,
+		otheta: 0,
+		speed: 1.8,
+		o:0
+	};
+	var p;
+	function begin() {
+		document.getElementById("begin").style.visibility = "hidden";
+		document.getElementById("stop").style.visibility = "visible";
+		slider_crank.speed = 1.8;
+		slider_crank.theta=0;
+		slider_crank.otheta = slider_crank.theta;
+	}
+	function stop() {
+		document.getElementById("begin").style.visibility = "visible";
+		document.getElementById("stop").style.visibility = "hidden";
+		slider_crank.otheta = slider_crank.theta;
+		slider_crank.speed = 0;
+	}
+	function notclick() {
+	location.reload();
+	}
+	var tm1,tm2,tm;
+
+	//document.getElementById("b").style.visibility="hidden";
+	function update_values1() {
+		//slider_crank.coup_len = parseInt(document.getElementById("a").value);
+		p = parseInt(document.getElementById("b").value);
+		h=parseInt(document.getElementById("c").value);
+		p=document.getElementById("spinnerp").value;
+		h=document.getElementById("spinnerd").value;
+		document.getElementById("spinnerp").value= parseInt(document.getElementById("b").value);
+		document.getElementById("spinnerd").value=parseInt(document.getElementById("c").value);
+		document.getElementById("b").value=document.getElementById("spinnerp").value;
+		document.getElementById("c").value=document.getElementById("spinnerd").value;
+
+	
+		
+		
+		/*if (slider_crank.coup_len/2 <= slider_crank.crank_len) {
+			slider_crank.crank_len=slider_crank.coup_len/2;
+			//document.getElementById("a").value = slider_crank.coup_len.toString();
+		}
+		
+		if(h>slider_crank.crank_len)
+		{
+			h=slider_crank.crank_len;
+			//document.getElementById("c").value = h.toString();
+		}	*/
+				
+	}
+	var a;
+	
+function clicked(){
+	 
+	window.requestAnimFrame = (function (callback) {
+		return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+				function (callback) {
+					window.setTimeout(callback, 1000 / 60);
+				};
+	})();
+	var canvas = document.getElementById('myCanvas');
+	var context = canvas.getContext('2d');
+	
+ document.getElementById("nxtbtn").style.visibility = "hidden";
+ document.getElementById("myForm").style.visibility="hidden";	
+ document.getElementById("myForm1").style.visibility="hidden";
+ document.getElementById("myForm2").style.visibility="hidden";
+ document.getElementById("myForm3").style.visibility="visible";	
+ document.getElementById("myForm4").style.visibility="visible";
+ document.getElementById("myForm5").style.visibility="hidden";
+
+  document.getElementById("tor_time").innerHTML="Time";
+ document.getElementById("tor_time1").innerHTML="Torque";
+ 
+document.getElementById("pbtn").style.visibility="visible";
+ document.getElementById("flwoptn").style.visibility="visible"; 
+  document.getElementById("lb").style.visibility="visible";
+
+  
+	var h;
+	var mass,radius;
+	var Inertia;
+	function draw_rectangle(x, y, ox, s_len, context,slider_x) {
+		
+		var b = 33;
+	
+			var b = 33;
+			var b = 33;
+		x=x-6.5;
+		context.beginPath();
+		context.strokeStyle = "#000";
+		context.lineWidth=2;
+		context.moveTo(x-b/2-10, y); // Move to start
+		context.lineTo(x-b/2-10 , y- h / 2);
+		context.lineTo(x -10, y-h/2);
+		context.lineTo(x-10, y + h / 2);
+		context.lineTo(x-b/2-10, y+ h / 2 );
+		context.lineTo(x-b/2-10, y);
+		context.closePath();
+		context.fill();
+	
+		
+		
+		//for surface
+		//for surface
+		context.fillStyle = "black";
+		context.lineWidth=1;
+		context.strokeStyle = "#000";
+		
+		context.beginPath();
+		
+		context.strokeStyle = "black";
+		context.moveTo(ox-slider_crank.crank_len-10, slider_crank.oy+ h / 2 );
+		context.lineTo(ox-slider_crank.crank_len-10, slider_crank.oy+ h / 2 -h/4);
+		context.moveTo(ox-slider_crank.crank_len-10, slider_crank.oy+ h / 2 );
+		context.lineTo(ox -s_len -b, slider_crank.oy +h/2);
+		context.closePath();
+		context.stroke();
+		context.strokeStyle = "#000";
+		
+		context.beginPath();
+		context.strokeStyle = "#000";
+		
+		
+		context.moveTo(ox-slider_crank.crank_len-30, slider_crank.oy - h / 2);
+		context.lineTo(ox-slider_crank.crank_len-30, slider_crank.oy - h / 2-10);
+		context.moveTo(ox-slider_crank.crank_len-30, slider_crank.oy - h / 2);
+		context.lineTo(ox-s_len - b+20 , slider_crank.oy-h/2 );
+		context.moveTo(ox-s_len - b+20 , slider_crank.oy-h/2);
+		context.lineTo(ox-s_len - b+20 , slider_crank.oy-h/2-10);
+		context.moveTo(ox-s_len - b+20-10 , slider_crank.oy-h/2);
+		context.lineTo(ox-s_len - b+20-10 , slider_crank.oy-h/2-10);
+		context.moveTo(ox-s_len - b+20-10 , slider_crank.oy-h/2);
+		context.lineTo(ox-s_len - b , slider_crank.oy-h/2);
+		context.moveTo(ox-slider_crank.crank_len-10, slider_crank.oy - h / 2);		
+		
+		context.lineTo(ox-slider_crank.crank_len-20, slider_crank.oy - h / 2);
+		
+		context.moveTo(ox-slider_crank.crank_len-10, slider_crank.oy - h / 2);
+		context.lineTo(ox-slider_crank.crank_len-10, slider_crank.oy - h / 2+h/4);
+		
+		context.moveTo(ox-slider_crank.crank_len-20, slider_crank.oy - h / 2);
+		context.lineTo(ox-slider_crank.crank_len-20, slider_crank.oy - h / 2-10);
+		//context.moveTo(ox-slider_crank.crank_len-20, slider_crank.oy - h / 2);
+		
+		
+		
+		
+		context.closePath();
+		context.stroke();
+		context.strokeStyle = "#000";
+		context.beginPath();
+		context.strokeStyle = "#000";
+	
+		context.strokeStyle = "black";
+		context.moveTo(ox -s_len -b, slider_crank.oy+h/2);
+		context.strokeStyle = "#000";
+		context.lineTo(ox - s_len -b, slider_crank.oy -h/2);
+		context.strokeStyle = "#000";
+		context.closePath();
+		context.strokeStyle = "#000";
+		context.stroke();
+		context.strokeStyle = "#000";
+	}
+	
+	function draw_everything(slider_crank, context) {
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		context.canvas.width = window.innerWidth;
+		context.canvas.height = window.innerHeight;
+	
+		context.moveTo(slider_crank.ox, slider_crank.oy); // Move to origin
+		
+		
+		
+		var z;
+		if(slider_crank.theta>=0 || slider_crank.theta<=180)
+		{
+			 z=Math.PI-(2*Math.PI-slider_crank.theta); }
+		if(z<0){ z=z+2*Math.PI; }
+		
+		
+		var force,pressure;
+		var area;
+		
+		var z;
+		if(slider_crank.theta>=0 || slider_crank.theta<=180)
+		{
+			 z=Math.PI-(2*Math.PI-slider_crank.theta); }
+		if(z<0){ z=z+2*Math.PI; }
+		
+		
+		var tor;
+		if(Math.round(z*180/Math.PI)>=0 && Math.round(z*180/Math.PI)<=180)
+		{
+			pressure=p*100000;
+			area=3.1415*((h/100)*(h/100))/4;
+			force=pressure*area;
+			tor= force*slider_crank.crank_len/100 *( Math.sin(z)+(Math.sin(2*z))/(2*Math.sqrt(16-(Math.sin(z)*Math.sin(z)))));
+			
+			//Arrow left down
+			context.beginPath();
+			context.strokeStyle="red";
+			context.lineWidth=3;
+			context.moveTo(canvas.width/2-200,canvas.height/2-208);
+			context.lineTo(canvas.width/2-200,canvas.height/2-208-15);
+			context.moveTo(canvas.width/2-200,canvas.height/2-208);
+			context.lineTo(canvas.width/2-200-5,canvas.height/2-208-5);
+			context.moveTo(canvas.width/2-200,canvas.height/2-208);
+			context.lineTo(canvas.width/2-200+5,canvas.height/2-208-5);
+			context.stroke();
+			
+			//Arrow right up
+			context.beginPath();
+			context.strokeStyle="#00FF00";
+			context.lineWidth=3;
+			context.moveTo(canvas.width/2-134,canvas.height/2-208);
+			context.lineTo(canvas.width/2-134,canvas.height/2-208-15);
+			context.moveTo(canvas.width/2-134,canvas.height/2-208-15);
+			context.lineTo(canvas.width/2-134-5,canvas.height/2-208-15+5);
+			context.moveTo(canvas.width/2-134,canvas.height/2-208-15);
+			context.lineTo(canvas.width/2-134+5,canvas.height/2-208-15+5);
+			context.stroke();
+			
+		}
+		else
+		{
+			pressure=p*100000;
+			area=3.1415*((h/100)*(h/100))/4;
+			force=pressure*area;
+			tor= force*slider_crank.crank_len/100 *( Math.sin(z)+(Math.sin(2*z))/(2*Math.sqrt(16-(Math.sin(z)*Math.sin(z)))));
+			
+			//Arrow left up
+			
+			context.beginPath();
+			context.strokeStyle="#00FF00";
+			context.lineWidth=3;
+			context.moveTo(canvas.width/2-200,canvas.height/2-208);
+			context.lineTo(canvas.width/2-200,canvas.height/2-208-15);
+			context.moveTo(canvas.width/2-200,canvas.height/2-208-15);
+			context.lineTo(canvas.width/2-200-5,canvas.height/2-208-15+5);
+			context.moveTo(canvas.width/2-200,canvas.height/2-208-15);
+			context.lineTo(canvas.width/2-200+5,canvas.height/2-208-15+5);
+			context.stroke();
+			
+			//Arrow right down
+			context.beginPath();
+			context.strokeStyle="red";
+			context.lineWidth=3;
+			context.moveTo(canvas.width/2-134,canvas.height/2-208);
+			context.lineTo(canvas.width/2-134,canvas.height/2-208-15);
+			context.moveTo(canvas.width/2-134,canvas.height/2-208);
+			context.lineTo(canvas.width/2-134-5,canvas.height/2-208-5);
+			context.moveTo(canvas.width/2-134,canvas.height/2-208);
+			context.lineTo(canvas.width/2-134+5,canvas.height/2-208-5);
+			context.stroke();
+			
+		}
+		var l=document.getElementById("spinnerp").value;
+		var k=document.getElementById("spinnerd").value;
+		tm1=l*10000*3.1415*((k/100)*(k/100))/4*slider_crank.crank_len/100;
+		tm2=l*10000*3.1415*((k/100)*(k/100))/4*slider_crank.crank_len/100;
+		tor=Math.round(tor)/1000;
+		tm1=Math.round(tm1)/1000;
+		tm2=Math.round(tm2)/1000;
+		tm=(tm2)/2;
+		tm=Math.round(tm*100)/100;
+		context.fillStyle = "#8B4513";
+		context.beginPath();
+		var theta_out = Math.asin((slider_crank.crank_len * Math.sin(slider_crank.theta) - slider_crank.offset_height) / slider_crank.coup_len);
+		
+		var slider_x = slider_crank.crank_len * Math.cos(slider_crank.theta) - slider_crank.coup_len * Math.cos(theta_out);
+		var slider_y = slider_crank.offset_height;
+		var crank_x = slider_crank.crank_len * Math.cos(slider_crank.theta);
+		var crank_y = slider_crank.crank_len * Math.sin(slider_crank.theta);
+		
+		
+		context.lineWidth=1;
+		context.strokeStyle = "black";
+		
+		
+		context.lineWidth = 4;
+		context.strokeStyle = "#F9D71C";
+		context.moveTo(slider_crank.ox+20, slider_crank.oy); 
+		context.lineTo(slider_crank.ox +20 + crank_x , slider_crank.oy+ crank_y);
+		context.moveTo(slider_crank.ox +20+ crank_x, slider_crank.oy+ crank_y );
+		context.lineTo(slider_crank.ox +20+ (slider_x+slider_crank.crank_len * Math.cos(slider_crank.theta) )/2, slider_crank.oy+ slider_y);
+		context.moveTo(slider_crank.ox +20+ (slider_x+slider_crank.crank_len * Math.cos(slider_crank.theta) )/2, slider_crank.oy+ slider_y);
+		context.lineTo(slider_crank.ox-10+ slider_x-10, slider_crank.oy+ slider_y);
+		
+		context.closePath();
+		context.stroke();
+		context.lineWidth=1;
+		context.strokeStyle = "black";
+	
+		
+		
+		draw_rectangle(slider_x+10 +slider_crank.ox, slider_y +  slider_crank.oy, slider_crank.ox-10, slider_crank.crank_len + slider_crank.coup_len, context,slider_crank.oy);
+		// for the dot at the connecting point
+		
+		context.fillStyle = "blue";
+		context.beginPath();
+		context.lineWidth=1
+		context.arc(slider_crank.ox+20 + (slider_x+slider_crank.crank_len * Math.cos(slider_crank.theta) )/2, slider_crank.oy+ slider_y,2,0,2*Math.PI);
+		context.closePath();
+		context.fill();
+		context.stroke();
+		
+		
+		context.fillStyle = "blue";
+		context.beginPath();
+		context.lineWidth=1
+		context.arc(slider_crank.ox + crank_x+20, slider_crank.oy+ crank_y , 3, 0, 2 * Math.PI);
+		context.closePath();
+		context.fill();
+		context.stroke();
+		context.fillStyle = "red";
+		context.beginPath();
+		context.arc(slider_crank.ox+20, slider_crank.oy, 4, 0, 2 * Math.PI);
+		context.closePath();
+		context.fill();
+		context.stroke();
+		
+		context.lineWidth=2;
+		context.strokeStyle = "black";
+		//flywheel
+		context.fillStyle = "black";
+		context.beginPath();
+		context.fillRect(slider_crank.ox+20, slider_crank.oy-2,32,4);
+		
+		context.beginPath();
+		context.fillStyle="	#EE5737";
+		context.rect(slider_crank.ox+32+20,slider_crank.oy-50,15,100);
+		context.fill();
+		context.stroke();
+		var g=Math.round(z*180/Math.PI);
+		var t=0;
+		if(g>=90 && g<=180)
+		{
+			t=5;
+		context.beginPath();
+		context.moveTo(slider_crank.ox+32+20,slider_crank.oy-50+5);
+		context.lineTo(slider_crank.ox+32+20+15,slider_crank.oy-50+5);
+		context.stroke();
+		
+		context.beginPath();
+		context.moveTo(slider_crank.ox+32+20,slider_crank.oy-50+25+t);
+		context.lineTo(slider_crank.ox+32+20+15,slider_crank.oy-50+25+t);
+		context.stroke();
+		
+		context.beginPath();
+		context.moveTo(slider_crank.ox+32+20,slider_crank.oy-50+50+t);
+		context.lineTo(slider_crank.ox+32+20+15,slider_crank.oy-50+50+t);
+		context.stroke();
+		
+		
+		context.beginPath();
+		context.moveTo(slider_crank.ox+32+20,slider_crank.oy-50+75+t);
+		context.lineTo(slider_crank.ox+32+20+15,slider_crank.oy-50+75+t);
+		context.stroke();
+		}
+		else if(g>180 && g<=270)
+		{
+			t=10;
+		context.beginPath();
+		context.moveTo(slider_crank.ox+32+20,slider_crank.oy-50+10);
+		context.lineTo(slider_crank.ox+32+20+15,slider_crank.oy-50+10);
+		context.stroke();
+		
+		context.beginPath();
+		context.moveTo(slider_crank.ox+32+20,slider_crank.oy-50+25+t);
+		context.lineTo(slider_crank.ox+32+15+20,slider_crank.oy-50+25+t);
+		context.stroke();
+		
+		context.beginPath();
+		context.moveTo(slider_crank.ox+32+20,slider_crank.oy-50+50+t);
+		context.lineTo(slider_crank.ox+32+15+20,slider_crank.oy-50+50+t);
+		context.stroke();
+		
+		
+		context.beginPath();
+		context.moveTo(slider_crank.ox+32+20,slider_crank.oy-50+75+t);
+		context.lineTo(slider_crank.ox+32+15+20,slider_crank.oy-50+75+t);
+		context.stroke();
+		}
+		else if(g>270 && g<=360)
+		{
+			t=15;
+			
+			context.beginPath();
+		context.moveTo(slider_crank.ox+32+20,slider_crank.oy-50+25+15-20);
+		context.lineTo(slider_crank.ox+32+15+20,slider_crank.oy-50+25+15-20);
+		context.stroke();
+			context.beginPath();
+		context.moveTo(slider_crank.ox+32+20,slider_crank.oy-50+25+15);
+		context.lineTo(slider_crank.ox+32+15+20,slider_crank.oy-50+25+15);
+		context.stroke();
+		
+		context.beginPath();
+		context.moveTo(slider_crank.ox+32+20,slider_crank.oy-50+50+t);
+		context.lineTo(slider_crank.ox+32+15+20,slider_crank.oy-50+50+t);
+		context.stroke();
+		
+		
+		context.beginPath();
+		context.moveTo(slider_crank.ox+32+20,slider_crank.oy-50+75+t);
+		context.lineTo(slider_crank.ox+32+15+20,slider_crank.oy-50+75+t);
+		context.stroke();
+		}	
+		
+		context.beginPath();
+		context.moveTo(slider_crank.ox+32+20,slider_crank.oy-50+25+t);
+		context.lineTo(slider_crank.ox+32+15+20,slider_crank.oy-50+25+t);
+		context.stroke();
+		
+		context.beginPath();
+		context.moveTo(slider_crank.ox+32+20,slider_crank.oy-50+50+t);
+		context.lineTo(slider_crank.ox+32+15+20,slider_crank.oy-50+50+t);
+		context.stroke();
+		
+		
+		context.beginPath();
+		context.moveTo(slider_crank.ox+32+20,slider_crank.oy-50+75+t);
+		context.lineTo(slider_crank.ox+32+15+20,slider_crank.oy-50+75+t);
+		context.stroke();
+		
+		//flywheel front view
+		if(document.getElementById("flwoptn").value==="disc")
+		{
+		context.beginPath();
+		context.fillStyle="#EE5737";
+		context.arc(slider_crank.ox+180,slider_crank.oy,50,0,2*Math.PI);
+		context.fill();
+		context.stroke();
+		
+		context.beginPath();
+		context.moveTo(slider_crank.ox+180,slider_crank.oy);
+		context.lineTo(slider_crank.ox+180+50*Math.cos(z),slider_crank.oy+50*Math.sin(z));
+		
+		context.moveTo(slider_crank.ox+180,slider_crank.oy);
+		context.lineTo(slider_crank.ox+180-50*Math.cos(z),slider_crank.oy-50*Math.sin(z));
+		
+		context.moveTo(slider_crank.ox+180,slider_crank.oy);
+		context.lineTo(slider_crank.ox+180+50*Math.cos(Math.PI/2+z),slider_crank.oy+50*Math.sin(Math.PI/2+z));
+		
+		context.moveTo(slider_crank.ox+180,slider_crank.oy);
+		context.lineTo(slider_crank.ox+180-50*Math.cos(Math.PI/2+z),slider_crank.oy-50*Math.sin(Math.PI/2+z));
+		
+		context.moveTo(slider_crank.ox+180,slider_crank.oy);
+		context.lineTo(slider_crank.ox+180+50*Math.cos(z+Math.PI/4),slider_crank.oy+50*Math.sin(z+Math.PI/4));
+		
+		context.moveTo(slider_crank.ox+180,slider_crank.oy);
+		context.lineTo(slider_crank.ox+180-50*Math.cos(z+Math.PI/4),slider_crank.oy-50*Math.sin(z+Math.PI/4));
+		
+		context.moveTo(slider_crank.ox+180,slider_crank.oy);
+		context.lineTo(slider_crank.ox+180+50*Math.cos(z-Math.PI/4),slider_crank.oy+50*Math.sin(z-Math.PI/4));
+		
+		context.moveTo(slider_crank.ox+180,slider_crank.oy);
+		context.lineTo(slider_crank.ox+180-50*Math.cos(z-Math.PI/4),slider_crank.oy-50*Math.sin(z-Math.PI/4));
+		context.stroke();
+		
+		context.beginPath();
+		context.fillStyle="white";
+		context.arc(slider_crank.ox+180,slider_crank.oy,10,0,2*Math.PI);
+		context.fill();
+		context.stroke();
+		}
+		else
+		{
+		
+		context.beginPath();
+		context.fillStyle="#EE5737";
+		context.arc(slider_crank.ox+180,slider_crank.oy,50,0,2*Math.PI);
+		context.fill();
+		context.stroke();
+		
+		context.beginPath();
+		context.fillStyle="white";
+		context.arc(slider_crank.ox+180,slider_crank.oy,40,0,2*Math.PI);
+		context.fill();
+		context.stroke();
+		
+		context.beginPath();
+		context.fillStyle="#EE5737";
+		context.arc(slider_crank.ox+180,slider_crank.oy,8,0,2*Math.PI);
+		context.fill();
+		context.stroke();
+		
+		context.beginPath();
+		context.moveTo(slider_crank.ox+180,slider_crank.oy);
+		context.lineTo(slider_crank.ox+180+40*Math.cos(z),slider_crank.oy+40*Math.sin(z));
+		
+		context.moveTo(slider_crank.ox+180,slider_crank.oy);
+		context.lineTo(slider_crank.ox+180-40*Math.cos(z),slider_crank.oy-40*Math.sin(z));
+		
+		context.moveTo(slider_crank.ox+180,slider_crank.oy);
+		context.lineTo(slider_crank.ox+180+40*Math.cos(Math.PI/2+z),slider_crank.oy+40*Math.sin(Math.PI/2+z));
+		
+		context.moveTo(slider_crank.ox+180,slider_crank.oy);
+		context.lineTo(slider_crank.ox+180-40*Math.cos(Math.PI/2+z),slider_crank.oy-40*Math.sin(Math.PI/2+z));
+		
+		context.moveTo(slider_crank.ox+180,slider_crank.oy);
+		context.lineTo(slider_crank.ox+180+40*Math.cos(z+Math.PI/4),slider_crank.oy+40*Math.sin(z+Math.PI/4));
+		
+		context.moveTo(slider_crank.ox+180,slider_crank.oy);
+		context.lineTo(slider_crank.ox+180-40*Math.cos(z+Math.PI/4),slider_crank.oy-40*Math.sin(z+Math.PI/4));
+		
+		context.moveTo(slider_crank.ox+180,slider_crank.oy);
+		context.lineTo(slider_crank.ox+180+40*Math.cos(z-Math.PI/4),slider_crank.oy+40*Math.sin(z-Math.PI/4));
+		
+		context.moveTo(slider_crank.ox+180,slider_crank.oy);
+		context.lineTo(slider_crank.ox+180-40*Math.cos(z-Math.PI/4),slider_crank.oy-40*Math.sin(z-Math.PI/4));
+		context.stroke();
+		
+		context.beginPath();
+		context.fillStyle="#EE5737";
+		context.arc(slider_crank.ox+180,slider_crank.oy,8,0,2*Math.PI);
+		context.fill();
+		context.stroke();
+		
+		
+		}
+		
+		
+		var ctx = canvas.getContext('2d');
+		context.beginPath();
+		//context.moveTo(canvas.width/2+290,canvas.height/2);
+		
+		
+		//context.arc(canvas.width/2-300+Math.round(z*180/Math.PI),canvas.height/2+60-Math.round(tor*100)/100, 4, 0, 2 * Math.PI);
+		context.fillStyle = "red";
+        context.fill();
+		
+		function plotSine(ctx) {
+	    var width = canvas.width/2-380+270;
+   
+    
+
+   ctx.beginPath();
+    ctx.lineWidth = 2;
+	context.lineWidth=2;
+		context.strokeStyle = "black";
+	
+     ctx.moveTo(canvas.width/2-380,canvas.height/2-30);
+	
+    ctx.lineTo(canvas.width/2-380+270,canvas.height/2-30);
+    ctx.moveTo(canvas.width/2-380,canvas.height/2-30);
+    ctx.lineTo(canvas.width/2-380,canvas.height/2-30+60);
+    ctx.moveTo(canvas.width/2-380,canvas.height/2-30);
+    ctx.lineTo(canvas.width/2-380,canvas.height/2-30-60);
+    ctx.strokeStyle = "rgb(66,44,255)";
+    
+    var z =canvas.width/2-380 ; //add 
+    var y = canvas.height/2;
+	ctx.moveTo(canvas.width/2-380,canvas.height/2-30);
+   
+   
+	var x=100;
+    
+	//T mean
+	ctx.moveTo(canvas.width/2-380,canvas.height/2-30-20*tm);
+	ctx.lineTo(canvas.width/2-380+270,canvas.height/2-30-20*tm);
+	
+    var z =canvas.width/2-380 ;
+    var y = canvas.height/2;
+	ctx.moveTo(canvas.width/2-380,canvas.height/2+100);
+    var amplitude = slider_crank.crank_len;
+    var frequency = 57.2;
+	var x=0;
+    //ctx.moveTo(x, y);
+	context.stroke();
+	
+
+}
+
+plotSine(ctx);
+//torque vs time
+
+
+function plotsine1(ctx) {
+	
+	
+   ctx.beginPath();
+    ctx.lineWidth = 2;
+	context.lineWidth=2;
+		context.strokeStyle = "black";
+	
+     ctx.moveTo(canvas.width/2-80,canvas.height/2-30);
+	
+    ctx.lineTo(canvas.width/2-80+265,canvas.height/2-30);
+    ctx.moveTo(canvas.width/2-80,canvas.height/2-30);
+    ctx.lineTo(canvas.width/2-80,canvas.height/2-30+60);
+    ctx.moveTo(canvas.width/2-80,canvas.height/2-30);
+    ctx.lineTo(canvas.width/2-80,canvas.height/2-30-60);
+    ctx.strokeStyle = "rgb(66,44,255)";
+    
+    var z =canvas.width/2-80 ;
+    var y = canvas.height/2;
+	ctx.moveTo(canvas.width/2-80,canvas.height/2-30);
+   
+	f=20/250*a;
+	var x=100;
+	//T mean
+	ctx.moveTo(canvas.width/2-80,canvas.height/2-30-20*tm);
+	ctx.lineTo(canvas.width/2-80+a-20,canvas.height/2-30-20*tm);
+    ctx.strokeStyle = "rgb(66,44,255)";
+	ctx.stroke();
+	
+	ctx.beginPath();
+   ctx.setLineDash([5, 10]);
+   ctx.moveTo(canvas.width/2-80+a-20,canvas.height/2-30-20*tm);
+   ctx.lineTo(canvas.width/2-80+a-20,canvas.height/2-30);
+   
+   ctx.strokeStyle="black";
+   ctx.stroke();
+    
+}
+plotsine1(ctx);
+
+/*
+function plotline1(ctx) {
+   // var width = canvas.width/2-200+360+a;
+   
+    
+
+   ctx.beginPath();
+    ctx.lineWidth = 2;
+	context.lineWidth=2;
+		context.strokeStyle = "black";
+	ctx.strokeStyle="blue";
+	ctx.setLineDash([]);
+     ctx.moveTo(canvas.width/2-170,canvas.height/2+165);
+	
+    ctx.lineTo(canvas.width/2-170+270,canvas.height/2+165);
+    ctx.moveTo(canvas.width/2-170,canvas.height/2+165);
+    
+    ctx.lineTo(canvas.width/2-170,canvas.height/2+165-120);
+    ctx.strokeStyle = "rgb(66,44,255)";
+    
+    var z =canvas.width/2-170 ;
+    var y = canvas.height/2;
+	ctx.moveTo(canvas.width/2-170,canvas.height/2+165);
+	ctx.lineTo(canvas.width/2-170+a,canvas.height/2+165-120);
+   
+   ctx.stroke();
+   
+   ctx.beginPath();
+   ctx.setLineDash([5, 15]);
+   ctx.moveTo(canvas.width/2-170+a,canvas.height/2+165-120);
+   ctx.lineTo(canvas.width/2-170+a,canvas.height/2+165);
+   ctx.strokeStyle="black";
+   ctx.stroke();
+}
+plotline1(ctx);*/
+		ctx.beginPath();
+		//context.arc(canvas.width/2-170+Math.round(z*180/Math.PI),canvas.height/2-170-20*tm, 3, 0, 2 * Math.PI);
+		context.fillStyle = "red";
+        context.fill();
+		context.beginPath();
+		context.lineWidth=2;
+		context.strokeStyle = "black";
+		context.setLineDash([5, 5]);
+		context.beginPath();
+		context.arc(slider_crank.ox+20, slider_crank.oy, slider_crank.crank_len, 0, Math.PI * 2);
+		context.closePath();
+		//context.stroke();
+		context.stroke();
+		
+		var p="2";
+		var m="m";
+		tm=tm*10
+		//tm=Math.round(tm*100)/100;
+		//document.getElementById("t_op").innerHTML = mass;
+		//document.getElementById("disp_op").innerHTML = radius;
+		//document.getElementById("myop").innerHTML="Moment of Inertia( I ):<br>"+(Math.round(Inertia*100)/100).toString()+" kg-m"+p.sup();
+		//document.getElementById("tor").innerHTML="<br>Mean Torque( τ"+m.sub()+" ):<br>"+tm.toString()+" kN-m";
+		document.getElementById("distxt").innerHTML="Previous";
+		//document.getElementById("myflw").innerHTML="Engine Connected with a Flywheel ";
+
+		document.getElementById("commentboxleft").innerHTML="Theta ( θ ): "+ Math.round(z*180/Math.PI).toString()+" °"+
+			"<br>Time Period ( T ): "+(5+(((a%200)/10)-1)/2).toString()+" sec"+"<br>Moment of Inertia: "+Math.round(Inertia*100)/100+" kg-m"+p.sup();			;
+		document.getElementById("tmean1").innerHTML="τ"+m.sub()+" = "+((Math.round(tm*100)/100)).toString()+"kN-m";
+		document.getElementById("tmean2").innerHTML="τ"+m.sub()+" = "+(Math.round(tm*100)/100).toString()+"kN-m";
+	}
+	function update_values() {
+		//slider_crank.coup_len = parseInt(document.getElementById("a").value);
+		mass = parseInt(document.getElementById("p").value);
+		radius=parseInt(document.getElementById("q").value);
+		mass=document.getElementById("spinnerm").value;
+		radius=document.getElementById("spinnerr").value;
+		document.getElementById("spinnerr").value= parseInt(document.getElementById("q").value);
+		document.getElementById("spinnerm").value=parseInt(document.getElementById("p").value);
+		if(document.getElementById("flwoptn").value==="disc")
+			Inertia=(mass*(radius/100)*(radius/100))/2;
+		else 
+			Inertia=(mass*(radius/100)*(radius/100));
+		slider_crank.coup_len =72;
+		slider_crank.crank_len = 19;
+		h=20;
+		
+	
+				
+	}
+	function animate(slider_crank, canvas, context, startTime) {
+		// update
+		update_values();
+		update_values1();
+		var time = (new Date()).getTime() - startTime;
+		var newTheta = slider_crank.speed * time / 1000;
+		slider_crank.theta = slider_crank.otheta + newTheta % (2 * Math.PI);
+		// clear
+		draw_everything(slider_crank, context);
+		// request new frame
+		requestAnimFrame(function () {
+			animate(slider_crank, canvas, context, startTime);
+		});
+	}
+	draw_everything(slider_crank, context);
+	
+	// wait one second before starting animation
+	setTimeout(function () {
+		var startTime = (new Date()).getTime();
+		animate(slider_crank, canvas, context, startTime);
+	}, 1000);
+}
+//end
+
+	 /* var x = document.createElement("OUTPUT");
+  document.getElementById("myForm").appendChild(x);
+	  var y = document.createElement("OUTPUT");
+  document.getElementById("myForm1").appendChild(y);
+  var s = document.createElement("OUTPUT");
+  document.getElementById("myForm2").appendChild(s);*/
+  
+  	document.getElementById("begin").style.visibility = "hidden";
+document.getElementById("pbtn").style.visibility="hidden";
+document.getElementById("flwoptn").style.visibility="hidden";
+document.getElementById("lb").style.visibility="hidden";
+	document.getElementById("a").style.visibility="hidden";
+	window.requestAnimFrame = (function (callback) {
+		return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+				function (callback) {
+					window.setTimeout(callback, 1000 / 60);
+				};
+	})();
+	var canvas = document.getElementById('myCanvas');
+	var context = canvas.getContext('2d');
+	
+	var h;
+	
+	 document.getElementById("myForm3").style.visibility="hidden";	
+ document.getElementById("myForm4").style.visibility="hidden";
+ document.getElementById("myForm5").style.visibility="hidden";
+ document.getElementById("tor_time").innerHTML="Time";
+ document.getElementById("tor_time1").innerHTML="Torque";
+	function draw_rectangle(x, y, ox, s_len, context,slider_x) {
+		
+		var b = 33;
+		x=x-6.5;
+		context.beginPath();
+		context.strokeStyle = "#000";
+		context.lineWidth=2;
+		context.moveTo(x-b/2-10, y); // Move to start
+		context.lineTo(x-b/2-10 , y- h / 2);
+		context.lineTo(x -10, y-h/2);
+		context.lineTo(x-10, y + h / 2);
+		context.lineTo(x-b/2-10, y+ h / 2 );
+		context.lineTo(x-b/2-10, y);
+		context.closePath();
+		context.fill();
+		
+	
+		
+		
+		//for surface
+		context.fillStyle = "black";
+		context.lineWidth=1;
+		context.strokeStyle = "#000";
+		
+		context.beginPath();
+		
+		context.strokeStyle = "black";
+		context.moveTo(ox-slider_crank.crank_len-10, slider_crank.oy+ h / 2 );
+		context.lineTo(ox-slider_crank.crank_len-10, slider_crank.oy+ h / 2 -h/4-2);
+		context.moveTo(ox-slider_crank.crank_len-10, slider_crank.oy+ h / 2 );
+		context.lineTo(ox -s_len -b, slider_crank.oy +h/2);
+		context.closePath();
+		context.stroke();
+		context.strokeStyle = "#000";
+		
+		context.beginPath();
+		context.strokeStyle = "#000";
+		
+		
+		context.moveTo(ox-slider_crank.crank_len-30, slider_crank.oy - h / 2);
+		context.lineTo(ox-slider_crank.crank_len-30, slider_crank.oy - h / 2-10);
+		context.moveTo(ox-slider_crank.crank_len-30, slider_crank.oy - h / 2);
+		context.lineTo(ox-s_len - b+20 , slider_crank.oy-h/2 );
+		context.moveTo(ox-s_len - b+20 , slider_crank.oy-h/2);
+		context.lineTo(ox-s_len - b+20 , slider_crank.oy-h/2-10);
+		context.moveTo(ox-s_len - b+20-10 , slider_crank.oy-h/2);
+		context.lineTo(ox-s_len - b+20-10 , slider_crank.oy-h/2-10);
+		context.moveTo(ox-s_len - b+20-10 , slider_crank.oy-h/2);
+		context.lineTo(ox-s_len - b , slider_crank.oy-h/2);
+		context.moveTo(ox-slider_crank.crank_len-10, slider_crank.oy - h / 2);		
+		
+		context.lineTo(ox-slider_crank.crank_len-20, slider_crank.oy - h / 2);
+		
+		context.moveTo(ox-slider_crank.crank_len-10, slider_crank.oy - h / 2);
+		context.lineTo(ox-slider_crank.crank_len-10, slider_crank.oy - h / 2+h/4+2);
+		
+		context.moveTo(ox-slider_crank.crank_len-20, slider_crank.oy - h / 2);
+		context.lineTo(ox-slider_crank.crank_len-20, slider_crank.oy - h / 2-10);
+		//context.moveTo(ox-slider_crank.crank_len-20, slider_crank.oy - h / 2);
+		
+		
+		
+		
+		context.closePath();
+		context.stroke();
+		context.strokeStyle = "#000";
+		context.beginPath();
+		context.strokeStyle = "#000";
+	
+		context.strokeStyle = "black";
+		context.moveTo(ox -s_len -b, slider_crank.oy+h/2);
+		context.strokeStyle = "#000";
+		context.lineTo(ox - s_len -b, slider_crank.oy -h/2);
+		context.strokeStyle = "#000";
+		context.closePath();
+		context.strokeStyle = "#000";
+		context.stroke();
+		context.strokeStyle = "#000";
+	}
+	
+	function draw_everything(slider_crank, context) {
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		context.canvas.width = window.innerWidth;
+		context.canvas.height = window.innerHeight;
+		
+		
+		
+		var force,pressure;
+		var area;
+		var z;
+		if(slider_crank.theta>=0 || slider_crank.theta<=180)
+		{
+			 z=Math.PI-(2*Math.PI-slider_crank.theta); }
+		if(z<0){ z=z+2*Math.PI; }
+		var tor;
+		if(Math.round(z*180/Math.PI)>=0 && Math.round(z*180/Math.PI)<=180)
+		{
+			pressure=p*100000;
+			area=3.1415*((h/100)*(h/100))/4;
+			force=pressure*area;
+			tor= force*slider_crank.crank_len/100 *( Math.sin(z)+(Math.sin(2*z))/(2*Math.sqrt(16-(Math.sin(z)*Math.sin(z)))));
+			var e=15;
+			//Arrow left down
+			context.beginPath();
+			context.strokeStyle="red";
+			context.lineWidth=3;
+			context.moveTo(canvas.width/2-200-e,canvas.height/2-208);
+			context.lineTo(canvas.width/2-200-e,canvas.height/2-208-15);
+			context.moveTo(canvas.width/2-200-e,canvas.height/2-208);
+			context.lineTo(canvas.width/2-200-5-e,canvas.height/2-208-5);
+			context.moveTo(canvas.width/2-200-e,canvas.height/2-208);
+			context.lineTo(canvas.width/2-200+5-e,canvas.height/2-208-5);
+			context.stroke();
+			
+			var v=5;
+			//Arrow right up
+			context.beginPath();
+			context.strokeStyle="#00FF00";
+			context.lineWidth=3;
+			context.moveTo(canvas.width/2-134-v,canvas.height/2-208);
+			context.lineTo(canvas.width/2-134-v,canvas.height/2-208-15);
+			context.moveTo(canvas.width/2-134-v,canvas.height/2-208-15);
+			context.lineTo(canvas.width/2-134-5-v,canvas.height/2-208-15+5);
+			context.moveTo(canvas.width/2-134-v,canvas.height/2-208-15);
+			context.lineTo(canvas.width/2-134+5-v,canvas.height/2-208-15+5);
+			context.stroke();
+			
+		}
+		else
+		{
+			pressure=p*100000;
+			area=3.1415*((h/100)*(h/100))/4;
+			force=pressure*area;
+			tor= force*slider_crank.crank_len/100 *( Math.sin(z)+(Math.sin(2*z))/(2*Math.sqrt(16-(Math.sin(z)*Math.sin(z)))));
+			
+			//Arrow left up
+				var e=15;
+			context.beginPath();
+			context.strokeStyle="#00FF00";
+			context.lineWidth=3;
+			context.moveTo(canvas.width/2-200-e,canvas.height/2-208);
+			context.lineTo(canvas.width/2-200-e,canvas.height/2-208-15);
+			context.moveTo(canvas.width/2-200-e,canvas.height/2-208-15);
+			context.lineTo(canvas.width/2-200-5-e,canvas.height/2-208-15+5);
+			context.moveTo(canvas.width/2-200-e,canvas.height/2-208-15);
+			context.lineTo(canvas.width/2-200+5-e,canvas.height/2-208-15+5);
+			context.stroke();
+			var v=5;
+			//Arrow right down
+			context.beginPath();
+			context.strokeStyle="red";
+			context.lineWidth=3;
+			context.moveTo(canvas.width/2-134-v,canvas.height/2-208);
+			context.lineTo(canvas.width/2-134-v,canvas.height/2-208-15);
+			context.moveTo(canvas.width/2-134-v,canvas.height/2-208);
+			context.lineTo(canvas.width/2-134-5-v,canvas.height/2-208-5);
+			context.moveTo(canvas.width/2-134-v,canvas.height/2-208);
+			context.lineTo(canvas.width/2-134+5-v,canvas.height/2-208-5);
+			context.stroke();
+			
+			
+		}
+		
+		
+		context.fillStyle = "#8B4513";
+		context.beginPath();
+		context.moveTo(slider_crank.ox, slider_crank.oy); // Move to origin
+		
+		tm1=p*100000*3.1415*((h/100)*(h/100))/4*slider_crank.crank_len/100;
+		tm2=p*100000*3.1415*((h/100)*(h/100))/4*slider_crank.crank_len/100;
+		tor=Math.round(tor)/1000;
+		tm1=Math.round(tm1)/1000;
+		tm2=Math.round(tm2)/1000;
+		tm=(tm2-tm1)/2;
+		var theta_out = Math.asin((slider_crank.crank_len * Math.sin(slider_crank.theta) - slider_crank.offset_height) / slider_crank.coup_len);
+		
+		var slider_x = slider_crank.crank_len * Math.cos(slider_crank.theta) - slider_crank.coup_len * Math.cos(theta_out);
+		var slider_y = slider_crank.offset_height;
+		var crank_x = slider_crank.crank_len * Math.cos(slider_crank.theta);
+		var crank_y = slider_crank.crank_len * Math.sin(slider_crank.theta);
+		
+		
+		context.lineWidth=1;
+		context.strokeStyle = "black";
+		
+		
+		context.lineWidth = 4;
+		context.strokeStyle = "#F9D71C";
+		context.moveTo(slider_crank.ox+20, slider_crank.oy); 
+		context.lineTo(slider_crank.ox +20 + crank_x , slider_crank.oy+ crank_y);
+		context.moveTo(slider_crank.ox +20+ crank_x, slider_crank.oy+ crank_y );
+		context.lineTo(slider_crank.ox +20+ (slider_x+slider_crank.crank_len * Math.cos(slider_crank.theta) )/2, slider_crank.oy+ slider_y);
+		context.moveTo(slider_crank.ox +20+ (slider_x+slider_crank.crank_len * Math.cos(slider_crank.theta) )/2, slider_crank.oy+ slider_y);
+		context.lineTo(slider_crank.ox +20+ slider_x-10-20, slider_crank.oy+ slider_y);
+		
+		context.closePath();
+		context.stroke();
+		context.lineWidth=1;
+		context.strokeStyle = "black";
+	
+		
+		
+		draw_rectangle(slider_x+10 +slider_crank.ox, slider_y +  slider_crank.oy, slider_crank.ox-10, slider_crank.crank_len + slider_crank.coup_len, context,slider_crank.oy);
+		// for the dot at the connecting point
+		context.fillStyle = "blue";
+		context.beginPath();
+		context.lineWidth=1
+		context.arc(slider_crank.ox+20+ crank_x , slider_crank.oy + crank_y, 3, 0, 2 * Math.PI);
+		
+		context.closePath();
+		context.fill();
+		context.stroke();
+		
+		
+		context.fillStyle = "blue";
+		context.beginPath();
+		context.lineWidth=1
+		context.arc(slider_crank.ox+20 + (slider_x+slider_crank.crank_len * Math.cos(slider_crank.theta) )/2, slider_crank.oy+ slider_y,2,0,2*Math.PI);
+		context.closePath();
+		context.fill();
+		context.stroke();
+		
+		
+		
+		
+		context.fillStyle = "red";
+		context.beginPath();
+		context.arc(slider_crank.ox+20, slider_crank.oy, 4, 0, 2 * Math.PI);
+		context.closePath();
+		context.fill();
+		context.stroke();
+		
+		context.lineWidth=2;
+		context.strokeStyle = "black";
+		
+		
+		var ctx = canvas.getContext('2d');
+		
+		 var amplitude = p/10*h/500*h/5*slider_crank.crank_len;
+		  var frequency = 20/250*270;
+		  //Torque vs theta
+function plotSine(ctx) {
+    var width = canvas.width/2-380+270;
+   
+    
+
+   ctx.beginPath();
+    ctx.lineWidth = 2;
+	context.lineWidth=2;
+		context.strokeStyle = "black";
+	
+     ctx.moveTo(canvas.width/2-380,canvas.height/2-30);
+	
+    ctx.lineTo(canvas.width/2-380+270,canvas.height/2-30);
+    ctx.moveTo(canvas.width/2-380,canvas.height/2-30);
+    ctx.lineTo(canvas.width/2-380,canvas.height/2-30+60);
+    ctx.moveTo(canvas.width/2-380,canvas.height/2-30);
+    ctx.lineTo(canvas.width/2-380,canvas.height/2-30-60);
+    ctx.strokeStyle = "rgb(66,44,255)";
+    
+    var z =canvas.width/2-380 ; //add 
+    var y = canvas.height/2;
+	ctx.moveTo(canvas.width/2-380,canvas.height/2-30);
+   
+   
+	var x=100;
+    //ctx.moveTo(x, y);
+    while (z < width) {
+		if(z>=canvas.width/2-380 && z<=canvas.width/2-380+180)
+			y = canvas.height/2-30-4*amplitude - 4*amplitude * Math.sin((x)/frequency);
+		else 
+		    y = canvas.height/2-30 -4*amplitude- 4*amplitude * Math.sin((x)/frequency);
+        ctx.lineTo(z, y);
+        x = x + 1;
+		z=z+1;
+    }
+    ctx.stroke();
+}
+plotSine(ctx);
+
+//torque vs time
+
+var f;
+function plotsine(ctx) {
+	
+	if(p>=0 && p<9)
+	{
+		a=270;
+		var width = canvas.width/2-80+a;
+	}
+	else if(p>=9 && p<16)
+	{
+		a=250;
+		var width = canvas.width/2-80+a;
+	}
+	else if(p>=16 && p<=20)
+	{
+		a=230;
+		//amplitude=amplitude/2;
+		var width = canvas.width/2-80+a;
+	}
+	
+   ctx.beginPath();
+    ctx.lineWidth = 2;
+	context.lineWidth=2;
+		context.strokeStyle = "black";
+	
+     ctx.moveTo(canvas.width/2-80,canvas.height/2-30);
+	
+    ctx.lineTo(canvas.width/2-80+265,canvas.height/2-30);
+    ctx.moveTo(canvas.width/2-80,canvas.height/2-30);
+    ctx.lineTo(canvas.width/2-80,canvas.height/2-30+60);
+    ctx.moveTo(canvas.width/2-80,canvas.height/2-30);
+    ctx.lineTo(canvas.width/2-80,canvas.height/2-30-60);
+    ctx.strokeStyle = "rgb(66,44,255)";
+    
+    var z =canvas.width/2-80 ;
+    var y = canvas.height/2;
+	ctx.moveTo(canvas.width/2-80,canvas.height/2-30);
+   
+	f=20/250*a;
+	var x=100;
+    //ctx.moveTo(x, y);
+    while (z < width) {
+		if(z>=canvas.width/2-80+100 && z<canvas.width/2-80+a/2)
+			y = canvas.height/2-30-4*amplitude  - 4*amplitude * Math.sin(x/f);
+		else 
+		    y = canvas.height/2-30 -4*amplitude   - 4*amplitude * Math.sin((x)/f);
+        ctx.lineTo(z, y);
+        x = x + 1;
+		z=z+1;
+    }
+    ctx.stroke();
+}
+plotsine(ctx);
+
+
+
+document.getElementById("labeltime9").innerHTML="0"; 
+document.getElementById("labeltime8").innerHTML="1"; 
+document.getElementById("labeltime0").innerHTML="2"; 
+document.getElementById("labeltime1").innerHTML="3"; 
+document.getElementById("labeltime2").innerHTML="4"; 
+document.getElementById("labeltime3").innerHTML="5"; 
+document.getElementById("labeltime4").innerHTML="6"; 
+document.getElementById("labeltime5").innerHTML="7"; 
+document.getElementById("labeltime6").innerHTML="8"; 
+document.getElementById("labeltime7").innerHTML=""; 
+document.getElementById("label0").innerHTML="0";
+document.getElementById("labelpi").innerHTML="π";
+document.getElementById("labeltwopi").innerHTML="2π";
+/*
+document.getElementById("labeltheta0").innerHTML="0"; 
+document.getElementById("labeltheta1").innerHTML="1"; 
+document.getElementById("labeltheta2").innerHTML="2"; 
+document.getElementById("labeltheta3").innerHTML="3"; 
+document.getElementById("labeltheta4").innerHTML="4"; 
+document.getElementById("labeltheta5").innerHTML="5"; 
+document.getElementById("labeltheta6").innerHTML="6"; 
+document.getElementById("labeltheta8").innerHTML="7"; 
+document.getElementById("labeltheta9").innerHTML="8"; 
+document.getElementById("tlabeltwopi").innerHTML="2π";
+
+document.getElementById("thet").innerHTML="Theta";
+document.getElementById("tim").innerHTML="Time";*/
+
+context.beginPath();
+		context.lineWidth=2;
+		context.strokeStyle = "black";
+		context.setLineDash([5, 5]);
+		context.beginPath();
+		context.arc(slider_crank.ox+20, slider_crank.oy, slider_crank.crank_len, 0, Math.PI * 2);
+		context.closePath();
+		context.stroke();
+		 var amplitude = p/10*h/500*h/5*slider_crank.crank_len;
+		  var frequency = 20/250*270;
+		//canvas.height/2-30-4*amplitude - 4*amplitude * Math.sin((x)/frequency);
+		context.beginPath();
+		//context.moveTo(canvas.width/2-380,canvas.height/2-30);
+		if(Math.round(z*180/Math.PI)<=136)
+			context.arc(canvas.width/2-380+Math.round(z*180/Math.PI),canvas.height/2-30-4*amplitude-4*amplitude* Math.sin(Math.round(z*180/Math.PI+100)/frequency), 3, 0, 2 * Math.PI);
+		else if(Math.round(z*180/Math.PI)>225 && Math.round(z*180/Math.PI)<=335)
+			context.arc(canvas.width/2-435+Math.round((z)*180/Math.PI-15),canvas.height/2-30-4*amplitude-4*amplitude* Math.sin(Math.round((z)*180/Math.PI-105)/frequency), 3, 0, 2 * Math.PI);
+
+		context.fillStyle = "red";
+        context.fill();
+		context.stroke();
+		// if(Math.round(slider_crank.o)<270){
+			//context.arc(canvas.width/2-380+Math.round(slider_crank.o),canvas.height/2-30-4*amplitude-4*amplitude* Math.sin(Math.round(slider_crank.o+100)/frequency), 3, 0, 2 * Math.PI);
+			
+		//}
+		context.beginPath();
+		p=document.getElementById("spinnerp").value;
+		if(Math.round(z*180/Math.PI)<a/2)
+			context.arc(canvas.width/2-80+Math.round(z*180/Math.PI),canvas.height/2-30-4*amplitude-4*amplitude* Math.sin(Math.round(z*180/Math.PI+100)/f), 3, 0, 2 * Math.PI);
+		else if(Math.round(z*180/Math.PI)>=(a/2+a/4) && (Math.round(z*180/Math.PI)<=a+45) && (p>=10||p<=15) && !(p<=9) && !(p>15))
+			context.arc(canvas.width/2-145+Math.round((z)*180/Math.PI),canvas.height/2-30-4*amplitude-4*amplitude* Math.sin(Math.round((z)*180/Math.PI-90)/f), 3, 0, 2 * Math.PI);
+		else if(Math.round(z*180/Math.PI)>=(a/2+a/4) && (Math.round(z*180/Math.PI)<=a+45) && (p<=9)&&!(p>15))
+			context.arc(canvas.width/2-139+Math.round((z)*180/Math.PI),canvas.height/2-30-4*amplitude-4*amplitude* Math.sin(Math.round((z)*180/Math.PI-90)/f), 3, 0, 2 * Math.PI);
+		else if(Math.round(z*180/Math.PI)>=(a/2+a/4) && (Math.round(z*180/Math.PI)<=a+45) && (p>15))
+			context.arc(canvas.width/2-152+Math.round((z)*180/Math.PI),canvas.height/2-30-4*amplitude-4*amplitude* Math.sin(Math.round((z)*180/Math.PI-90)/f), 3, 0, 2 * Math.PI);
+		context.fillStyle = "red";
+        context.fill();
+		context.stroke();
+		context.beginPath();
+		/*if(Math.round(z*180/Math.PI)>=0 && Math.round(z*180/Math.PI)<=a/2 )
+			context.arc(canvas.width/2-200+Math.round(z*180/Math.PI),canvas.height/2-30+3*amplitude* Math.sin(Math.round(z*180/Math.PI)/f), 3, 0, 2 * Math.PI);
+		else if(Math.round(z*180/Math.PI)>=a/2 && Math.round(z*180/Math.PI)<=a)
+			context.arc(canvas.width/2-200+Math.round(z*180/Math.PI),canvas.height/2-30+7*amplitude* Math.sin(Math.round(z*180/Math.PI)/f), 3, 0, 2 * Math.PI);
+		context.fillStyle = "red";
+        context.fill();
+		context.stroke();*/
+		
+		
+		document.getElementById("t_op").innerHTML = "";
+		document.getElementById("disp_op").innerHTML = "";
+		//document.getElementById("myop").innerHTML="Theta ( θ ): "+ Math.round(z*180/Math.PI).toString()+" °";
+		if(Math.round(z*180/Math.PI)>=0 && Math.round(z*180/Math.PI)<=180){
+			document.getElementById("commentboxleft").innerHTML="Theta ( θ ): "+ Math.round(z*180/Math.PI).toString()+" °"+
+			"<br>Torque (  τ ): "+Math.abs(Math.round(tor*100)/100).toString()+" kN-m"+"<br>Time Period ( T ): "+(5+((a%200)/10-1)/2).toString()+" sec"			;}
+		else 
+			{document.getElementById("commentboxleft").innerHTML="Theta ( θ ): "+ Math.round(z*180/Math.PI).toString()+" °"+
+			"<br>Torque (  τ ): "+Math.abs(Math.round(tor*100)/100).toString()+" kN-m"+"<br>Time Period ( T ): "+(5+((a%200)/10-1)/2).toString()+" sec"			;}
+		document.getElementById("distxt").innerHTML="Press Next to add Flywheel";
+		document.getElementById("myflw").innerHTML="";
+		
+
+	}
+	
+	function animate(slider_crank, canvas, context, startTime) {
+		// update
+		update_values1();
+		var time = (new Date()).getTime() - startTime;
+		var newTheta = slider_crank.speed * time / 1000;
+		slider_crank.theta = slider_crank.otheta + newTheta % (2 * Math.PI);
+		slider_crank.o=slider_crank.o+newTheta%(Math.PI);
+		// clear
+		draw_everything(slider_crank, context);
+		// request new frame
+		requestAnimFrame(function () {
+			animate(slider_crank, canvas, context, startTime);
+		});
+	}
+	draw_everything(slider_crank, context);
+	
+	// wait one second before starting animation
+	setTimeout(function () {
+		var startTime = (new Date()).getTime();
+		animate(slider_crank, canvas, context, startTime);
+	}, 1000);
+	
+		
+
+		
+</script>
+</body>
+</html>
